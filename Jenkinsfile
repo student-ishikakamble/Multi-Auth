@@ -3,14 +3,13 @@ pipeline {
     agent any
 
 
-    environment {
+   environment {
 
-        APP_NAME = "multi-auth-container"
-cd ~/Multi-Auth
-nano Jenkinsfile        IMAGE_NAME = "multi-auth-backend"
-        PORT = "5000"
+    APP_NAME = "multi-auth-container"
+    IMAGE_NAME = "multi-auth-backend"
+    PORT = "5000"
 
-    }
+}
 
 
     stages {
@@ -136,11 +135,15 @@ nano Jenkinsfile        IMAGE_NAME = "multi-auth-backend"
 
                     echo "Starting new container..."
 
-                    docker run -d \
-                    --name ${APP_NAME} \
-                    -p ${PORT}:5000 \
-                    -e DATABASE_URL="$DATABASE_URL" \
-                    ${IMAGE_NAME}:latest
+                docker run -d \
+--name ${APP_NAME} \
+-p ${PORT}:5000 \
+-e DATABASE_URL="$DATABASE_URL" \
+-e JWT_PRIVATE_KEY="$JWT_PRIVATE_KEY" \
+-e JWT_PUBLIC_KEY="$JWT_PUBLIC_KEY" \
+-e JWT_ACCESS_TOKEN_EXPIRE=900 \
+-e JWT_REFRESH_TOKEN_EXPIRE=604800 \
+${IMAGE_NAME}:latest
 
 
                     '''
