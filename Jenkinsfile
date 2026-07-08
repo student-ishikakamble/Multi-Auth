@@ -6,7 +6,8 @@ pipeline {
     environment {
 
         APP_NAME = "multi-auth-container"
-        IMAGE_NAME = "multi-auth-backend"
+cd ~/Multi-Auth
+nano Jenkinsfile        IMAGE_NAME = "multi-auth-backend"
         PORT = "5000"
 
     }
@@ -61,14 +62,15 @@ pipeline {
 
             steps {
 
-                withCredentials([
+               withCredentials([
 
-                    string(
-                        credentialsId: 'multi-auth-db-url',
-                        variable: 'DATABASE_URL'
-                    )
+    string(credentialsId: 'multi-auth-db-url', variable: 'DATABASE_URL'),
 
-                ]) {
+    string(credentialsId: 'jwt-private-key', variable: 'JWT_PRIVATE_KEY'),
+
+    string(credentialsId: 'jwt-public-key', variable: 'JWT_PUBLIC_KEY')
+
+]) {
 
 
                     sh '''
