@@ -109,18 +109,26 @@ pipeline {
 
         stage('Deploy') {
 
+    steps {
 
-            steps {
+        withCredentials([
 
+            string(
+                credentialsId: 'multi-auth-db-url',
+                variable: 'DATABASE_URL'
+            ),
 
-                withCredentials([
+            string(
+                credentialsId: 'jwt-private-key',
+                variable: 'JWT_PRIVATE_KEY'
+            ),
 
-                    string(
-                        credentialsId: 'multi-auth-db-url',
-                        variable: 'DATABASE_URL'
-                    )
+            string(
+                credentialsId: 'jwt-public-key',
+                variable: 'JWT_PUBLIC_KEY'
+            )
 
-                ]) {
+        ])  {
 
 
                     sh '''
