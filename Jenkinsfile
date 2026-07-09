@@ -184,7 +184,7 @@ ${IMAGE_NAME}:latest
 
 
                 curl --fail \
-                http://localhost:${PORT}/health
+http://localhost:${PORT}/
 
 
 
